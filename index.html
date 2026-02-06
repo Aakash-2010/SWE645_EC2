@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aakash Patil - AI/ML Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --dark: #0a0e14;
+            --dark-card: #12171f;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #ff006e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background grid */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Gradient orb effects */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary), transparent);
+            top: -200px;
+            right: -200px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--secondary), transparent);
+            bottom: -150px;
+            left: -150px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -50px) scale(1.1); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header/Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .profile-image {
+            position: absolute;
+            top: 4rem;
+            right: 2rem;
+            width: 300px;
+            height: auto;
+            z-index: 5;
+        }
+
+        .glitch {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+            position: relative;
+            color: var(--text);
+            animation: glitchText 8s infinite;
+        }
+
+        @keyframes glitchText {
+            0%, 95% { text-shadow: none; }
+            96% { 
+                text-shadow: 
+                    2px 2px var(--primary),
+                    -2px -2px var(--secondary);
+            }
+            97% { text-shadow: none; }
+            98% { 
+                text-shadow: 
+                    -2px 2px var(--accent),
+                    2px -2px var(--primary);
+            }
+            99%, 100% { text-shadow: none; }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 2px solid;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            border-color: var(--text-muted);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Section styling */
+        section {
+            margin: 6rem 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--primary);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .project-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.7rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+        }
+
+        .skill-category h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .skill-item {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Experience Section */
+        .experience-item {
+            background: var(--dark-card);
+            border-left: 3px solid var(--primary);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 2rem;
+            width: 13px;
+            height: 13px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--dark);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .experience-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text);
+        }
+
+        .experience-item .role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            color: var(--text-muted);
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .experience-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 6rem;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--dark-card);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--dark);
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--text-muted);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header .project-tag {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .modal-section p,
+        .modal-section li {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-section li {
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .modal-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .modal-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-links .btn {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            header {
+                text-align: center;
+            }
+
+            .profile-image {
+                position: static;
+                margin: 0 auto 2rem;
+                width: 200px;
+                display: block;
+            }
+
+            .projects-grid,
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+                width: 95%;
+            }
+
+            .modal-header h3 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1000;
+            transform-origin: left;
+        }
+
+        /* Dragon skull image */
+        .dragon-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin: 2rem auto;
+            display: block;
+            border: 2px solid var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <img src="dragon-skull.jpg" alt="Dragon Skull Art" class="profile-image">
+            <h1 class="glitch">Aakash Patil</h1>
+            <div class="subtitle">AI/ML ENGINEER & DATA SCIENTIST</div>
+            <p class="hero-description">
+                Computer Engineering graduate specializing in Artificial Intelligence and Machine Learning. 
+                Passionate about building intelligent systems that solve real-world problems through 
+                privacy-preserving AI, computer vision, and explainable machine learning.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="survey.html" class="btn btn-primary">Take Survey</a>
+                <a href="mailto:apatil6@gmu.edu" class="btn btn-secondary">Get In Touch</a>
+            </div>
+            <div class="social-links">
+                <a href="mailto:apatil6@gmu.edu">Email</a>
+                <a href="error.html" target="_blank">LinkedIn</a>
+                <a href="error.html" target="_blank">GitHub</a>
+                <span style="color: var(--text-muted);">|</span>
+                <span style="color: var(--text-muted);">+1(571)587-5786</span>
+            </div>
+        </header>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <span class="project-tag">AI • HEALTHCARE</span>
+                    <h3>PPXAI</h3>
+                    <p>
+                        Privacy-preserving explainable AI system for healthcare applications. 
+                        Integrated GRAD-CAM and XAI techniques to ensure precision while maintaining patient privacy, 
+                        balancing transparency with data protection in sensitive medical diagnostics.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">GRAD-CAM</span>
+                        <span class="tech-tag">XAI</span>
+                        <span class="tech-tag">Privacy AI</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <a href="#" class="project-link" data-modal="ppxai">Learn More →</a>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-tag">COMPUTER VISION</span>
+                    <h3>Image Super Resolution</h3>
+                    <p>
+                        Developed a GAN-based model capable of generating high-resolution images from low-resolution inputs. 
+                        Built with TensorFlow and deployed as a Streamlit web application, enabling real-time image enhancement 
+                        with impressive visual fidelity.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">GANs</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <a href="#" class="project-link" data-modal="superres">Learn More →</a>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-tag">MACHINE LEARNING</span>
+                    <h3>Entertainment Recommendation System</h3>
+                    <p>
+                        Built a content-based recommendation system using cosine similarity algorithms. 
+                        Developed a user-friendly web application with NumPy and Pandas for efficient data processing 
+                        and personalized entertainment suggestions.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                    </div>
+                    <a href="#" class="project-link" data-modal="ers">Learn More →</a>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-tag">SECURITY • WEB APP</span>
+                    <h3>Password Manager</h3>
+                    <p>
+                        Engineered a full-stack password management application with dynamic password generation 
+                        using SHA256 encryption. Integrated MySQL database for secure storage and implemented 
+                        intuitive Streamlit interface for seamless user experience.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">SHA256</span>
+                        <span class="tech-tag">Streamlit</span>
+                    </div>
+                    <a href="#" class="project-link" data-modal="password">Learn More →</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Arsenal</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">C++</span>
+                        <span class="skill-item">Java</span>
+                        <span class="skill-item">SQL</span>
+                        <span class="skill-item">NoSQL</span>
+                        <span class="skill-item">R</span>
+                        <span class="skill-item">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>ML/AI Frameworks</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">TensorFlow</span>
+                        <span class="skill-item">PyTorch</span>
+                        <span class="skill-item">Keras</span>
+                        <span class="skill-item">Scikit-learn</span>
+                        <span class="skill-item">NumPy</span>
+                        <span class="skill-item">Pandas</span>
+                        <span class="skill-item">Matplotlib</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Deep Learning & XAI</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">GANs</span>
+                        <span class="skill-item">GRAD-CAM</span>
+                        <span class="skill-item">LIME</span>
+                        <span class="skill-item">SHAP</span>
+                        <span class="skill-item">Computer Vision</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Databases & Cloud</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">MySQL</span>
+                        <span class="skill-item">DynamoDB</span>
+                        <span class="skill-item">AWS S3</span>
+                        <span class="skill-item">AWS Lambda</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Web & Visualization</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">React</span>
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">Tableau</span>
+                        <span class="skill-item">Power BI</span>
+                        <span class="skill-item">Looker</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>IBM SkillsBuild</h3>
+                        <div class="role">Data Analytics Intern</div>
+                    </div>
+                    <div class="experience-date">June 2023 – July 2023</div>
+                </div>
+                <ul>
+                    <li>Worked on Image Super Resolution project with project-based learning approach</li>
+                    <li>Acquired essential data analysis skills and mastered data visualization fundamentals</li>
+                    <li>Collaborated in team environment, developing crucial teamwork and communication skills</li>
+                    <li>Applied analytical techniques to real-world datasets and business problems</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="experience-item" style="border-left-color: var(--secondary);">
+                <p style="color: var(--text); line-height: 1.8; margin-bottom: 1.5rem;">
+                    I'm a Computer Engineering graduate from Xavier Institute of Engineering, Mumbai, with a minor 
+                    in AI & ML and a CGPA of 7.95. My journey in technology is driven by a deep fascination with 
+                    artificial intelligence and its potential to create meaningful impact.
+                </p>
+                <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem;">
+                    Currently focused on privacy-preserving AI and explainable machine learning, I'm passionate 
+                    about building systems that are not only powerful but also transparent and trustworthy. 
+                    My work spans computer vision, deep learning, and data analytics, with particular interest 
+                    in healthcare applications where AI can make a real difference.
+                </p>
+                <p style="color: var(--text-muted); line-height: 1.8;">
+                    Beyond technical pursuits, I've served as Head of Music and Dance Committee for Spandan 
+                    (XIE's cultural fest) and been actively involved in organizing technical events, demonstrating 
+                    my commitment to holistic development and community engagement.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Aakash Patil. Built with passion for AI and innovation.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="mailto:apatil6@gmu.edu">apatil6@gmu.edu</a> | +1(571)587-5786
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.85rem;">
+                <a href="error.html" style="color: var(--text-muted); text-decoration: none; border-bottom: 1px dashed var(--text-muted);">View Error Page (Test)</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Project Modals -->
+    <div id="modal-ppxai" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" data-close='ppxai'>×</button>
+            <div class="modal-header">
+                <span class="project-tag">AI • HEALTHCARE</span>
+                <h3>PPXAI - Privacy Preserving Explainable AI</h3>
+            </div>
+            <div class="modal-section">
+                <h4>Overview</h4>
+                <p>
+                    PPXAI is a cutting-edge healthcare AI system that addresses one of the most critical challenges 
+                    in medical AI: balancing the need for accurate, interpretable predictions with strict patient 
+                    privacy requirements. This project demonstrates how explainable AI techniques can be integrated 
+                    with privacy-preserving methods to create trustworthy healthcare applications.
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>Integration of GRAD-CAM for visual explanations of model predictions in medical imaging</li>
+                    <li>Privacy-preserving techniques ensuring sensitive patient data remains protected</li>
+                    <li>Explainable AI methods that improve transparency and build trust with healthcare professionals</li>
+                    <li>Real-time interpretable predictions suitable for clinical decision-making</li>
+                    <li>Compliance with healthcare data privacy standards and regulations</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>Technologies Used</h4>
+                <p>
+                    <strong>GRAD-CAM:</strong> Gradient-weighted Class Activation Mapping for visualizing which regions of medical images influence model decisions<br>
+                    <strong>Explainable AI (XAI):</strong> Techniques to make AI decisions interpretable for medical professionals<br>
+                    <strong>Privacy Preserving AI:</strong> Methods to protect patient data while maintaining model performance<br>
+                    <strong>Python:</strong> Core development language with deep learning frameworks
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Impact</h4>
+                <p>
+                    This project contributes to the critical need for trustworthy AI in healthcare by ensuring that 
+                    AI models not only provide accurate diagnoses but also explain their reasoning in a way that 
+                    healthcare professionals can understand and verify, all while maintaining the highest standards 
+                    of patient privacy.
+                </p>
+            </div>
+            <div class="modal-links">
+                <a href="error.html" class="btn btn-primary">Contact for Details</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-superres" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" data-close='superres'>×</button>
+            <div class="modal-header">
+                <span class="project-tag">COMPUTER VISION</span>
+                <h3>Image Super Resolution using GANs</h3>
+            </div>
+            <div class="modal-section">
+                <h4>Overview</h4>
+                <p>
+                    This project leverages the power of Generative Adversarial Networks (GANs) to transform 
+                    low-resolution images into high-resolution outputs with impressive visual quality. Completed 
+                    during my IBM SkillsBuild internship, this project demonstrates practical applications of 
+                    deep learning in image enhancement.
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>GAN architecture trained to generate realistic high-resolution images from low-res inputs</li>
+                    <li>Real-time image enhancement capabilities through Streamlit web interface</li>
+                    <li>Perceptual loss functions to maintain visual fidelity and natural appearance</li>
+                    <li>Scalable architecture capable of handling various image types and resolutions</li>
+                    <li>User-friendly interface for easy image upload and processing</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>Technical Implementation</h4>
+                <p>
+                    <strong>GANs:</strong> Generator-Discriminator architecture for photorealistic upscaling<br>
+                    <strong>TensorFlow:</strong> Deep learning framework for model training and inference<br>
+                    <strong>Streamlit:</strong> Interactive web application framework for deployment<br>
+                    <strong>Google Colab:</strong> Cloud-based development and training environment<br>
+                    <strong>Python:</strong> Core programming language with NumPy and OpenCV
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Project Duration</h4>
+                <p>July 2023 – November 2023</p>
+            </div>
+            <div class="modal-links">
+                <a href="error.html" class="btn btn-primary">Request Demo</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ers" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" data-close='ers'>×</button>
+            <div class="modal-header">
+                <span class="project-tag">MACHINE LEARNING</span>
+                <h3>Entertainment Recommendation System (ERS)</h3>
+            </div>
+            <div class="modal-section">
+                <h4>Overview</h4>
+                <p>
+                    ERS is a content-based recommendation system that provides personalized entertainment 
+                    suggestions based on user preferences and content similarity. The system analyzes various 
+                    features of entertainment content to find and recommend items that match user tastes.
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>Content-based filtering using cosine similarity for accurate recommendations</li>
+                    <li>Efficient data processing pipeline with NumPy and Pandas</li>
+                    <li>User-friendly web interface for seamless interaction</li>
+                    <li>Real-time recommendation generation based on user input</li>
+                    <li>Scalable architecture supporting large entertainment databases</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>Technical Stack</h4>
+                <p>
+                    <strong>Python:</strong> Core programming language for all implementations<br>
+                    <strong>NumPy:</strong> Efficient numerical computations and similarity calculations<br>
+                    <strong>Pandas:</strong> Data manipulation and feature extraction<br>
+                    <strong>Scikit-learn:</strong> Machine learning algorithms and cosine similarity implementation
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Algorithms & Approach</h4>
+                <ul>
+                    <li>Cosine similarity to measure content similarity between items</li>
+                    <li>Feature vectorization for content representation</li>
+                    <li>Collaborative approach to team development and testing</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>Project Duration</h4>
+                <p>January 2023 – May 2023</p>
+            </div>
+            <div class="modal-links">
+                <a href="error.html" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-password" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" data-close='password'>×</button>
+            <div class="modal-header">
+                <span class="project-tag">SECURITY • WEB APP</span>
+                <h3>Password Manager</h3>
+            </div>
+            <div class="modal-section">
+                <h4>Overview</h4>
+                <p>
+                    A comprehensive password management solution that combines security best practices with 
+                    user-friendly design. This full-stack application generates, stores, and manages passwords 
+                    securely using industry-standard encryption techniques.
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>Dynamic password generation with customizable complexity requirements</li>
+                    <li>SHA256 encryption algorithm for secure password hashing</li>
+                    <li>MySQL database backend for persistent, secure password storage</li>
+                    <li>Streamlit-based intuitive user interface</li>
+                    <li>Master password protection for accessing stored credentials</li>
+                    <li>Password strength analysis and recommendations</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>Security Features</h4>
+                <ul>
+                    <li>SHA256 cryptographic hashing for password encryption</li>
+                    <li>Secure database connections with parameterized queries</li>
+                    <li>No plain-text password storage</li>
+                    <li>Random password generation with high entropy</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>Technical Stack</h4>
+                <p>
+                    <strong>Python:</strong> Backend logic and encryption implementation<br>
+                    <strong>MySQL:</strong> Relational database for secure credential storage<br>
+                    <strong>SHA256:</strong> Cryptographic hash function for password security<br>
+                    <strong>Streamlit:</strong> Modern web framework for the user interface
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Team Collaboration</h4>
+                <p>
+                    Developed collaboratively with a team of 4 members, demonstrating strong teamwork, 
+                    version control practices, and agile development methodologies.
+                </p>
+            </div>
+            <div class="modal-section">
+                <h4>Project Duration</h4>
+                <p>July 2022 – November 2022</p>
+            </div>
+            <div class="modal-links">
+                <a href="error.html" class="btn btn-primary">View Code</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollIndicator.style.width = scrollPercentage + '%';
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+                orb.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById('modal-' + modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById('modal-' + modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Initialize modal event listeners when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click listeners to all "Learn More" links
+            document.querySelectorAll('.project-link[data-modal]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const modalId = this.getAttribute('data-modal');
+                    openModal(modalId);
+                });
+            });
+
+            // Add click listeners to all close buttons
+            document.querySelectorAll('.close-modal[data-close]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-close');
+         

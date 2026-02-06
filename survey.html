@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Survey - Aakash Patil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --dark: #0a0e14;
+            --dark-card: #12171f;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #ff006e;
+            --error: #ff3860;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary), transparent);
+            top: -200px;
+            right: -200px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--secondary), transparent);
+            bottom: -150px;
+            left: -150px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -50px) scale(1.1); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 3rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        /* Form Groups */
+        .form-section {
+            margin-bottom: 3rem;
+        }
+
+        .form-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        label.required::after {
+            content: ' *';
+            color: var(--accent);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        input[type="text"]:required:invalid,
+        input[type="email"]:required:invalid,
+        input[type="tel"]:required:invalid,
+        input[type="date"]:required:invalid {
+            border-color: rgba(255, 56, 96, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Checkboxes and Radio buttons */
+        .checkbox-group,
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        /* Select dropdown */
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff88' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            padding-right: 2.5rem;
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-submit {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-cancel {
+            border-color: var(--text-muted);
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Error messages */
+        .error-message {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--error);
+        }
+
+        /* Help text */
+        .help-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .form-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group,
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+        <header>
+            <h1>Student Survey</h1>
+            <p class="subtitle">Help us improve your campus experience</p>
+        </header>
+
+        <div class="form-card">
+            <form id="studentSurvey" action="submit_survey.php" method="POST">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <h2>Personal Information</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="required">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                            <span class="error-message">Please enter your first name</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName" class="required">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                            <span class="error-message">Please enter your last name</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="streetAddress" class="required">Street Address</label>
+                        <input type="text" id="streetAddress" name="streetAddress" required>
+                        <span class="error-message">Please enter your street address</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city" class="required">City</label>
+                            <input type="text" id="city" name="city" required>
+                            <span class="error-message">Please enter your city</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state" class="required">State</label>
+                            <input type="text" id="state" name="state" required>
+                            <span class="error-message">Please enter your state</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zip" class="required">ZIP Code</label>
+                            <input type="text" id="zip" name="zip" pattern="[0-9]{5}" required>
+                            <span class="error-message">Please enter a valid 5-digit ZIP code</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telephone" class="required">Telephone Number</label>
+                            <input type="tel" id="telephone" name="telephone" pattern="[0-9\-\(\)\s]+" required>
+                            <span class="error-message">Please enter your telephone number</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="required">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <span class="error-message">Please enter a valid email address</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="surveyDate" class="required">Date of Survey</label>
+                            <input type="date" id="surveyDate" name="surveyDate" required>
+                            <span class="error-message">Please select the survey date</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campus Experience Section -->
+                <div class="form-section">
+                    <h2>Campus Experience</h2>
+                    
+                    <div class="form-group">
+                        <label>What did you like most about the campus? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="students" name="likedMost" value="students">
+                                <label for="students">Students</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="location" name="likedMost" value="location">
+                                <label for="location">Location</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="campus" name="likedMost" value="campus">
+                                <label for="campus">Campus</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="atmosphere" name="likedMost" value="atmosphere">
+                                <label for="atmosphere">Atmosphere</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="dormRooms" name="likedMost" value="dormRooms">
+                                <label for="dormRooms">Dorm Rooms</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sports" name="likedMost" value="sports">
+                                <label for="sports">Sports</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">How did you become interested in the university?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="friends" name="interestSource" value="friends" required>
+                                <label for="friends">Friends</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="television" name="interestSource" value="television">
+                                <label for="television">Television</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="internet" name="interestSource" value="internet">
+                                <label for="internet">Internet</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="other" name="interestSource" value="other">
+                                <label for="other">Other</label>
+                            </div>
+                        </div>
+                        <span class="error-message">Please select how you became interested</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recommendation" class="required">How likely are you to recommend this school to other prospective students?</label>
+                        <select id="recommendation" name="recommendation" required>
+                            <option value="">-- Select an option --</option>
+                            <option value="veryLikely">Very Likely</option>
+                            <option value="likely">Likely</option>
+                            <option value="unlikely">Unlikely</option>
+                        </select>
+                        <span class="error-message">Please select a recommendation likelihood</span>
+                    </div>
+                </div>
+
+                <!-- Raffle Section -->
+                <div class="form-section">
+                    <h2>Raffle Entry</h2>
+                    
+                    <div class="form-group">
+                        <label for="raffle" class="required">Enter 10 comma-separated numbers (1-100) for the raffle</label>
+                        <input type="text" id="raffle" name="raffle" placeholder="e.g., 5, 23, 47, 8, 91, 34, 12, 67, 88, 42" required>
+                        <p class="help-text">Please enter at least 10 numbers between 1 and 100, separated by commas. Win a free movie ticket!</p>
+                        <span class="error-message">Please enter at least 10 valid numbers between 1 and 100, separated by commas</span>
+                    </div>
+                </div>
+
+                <!-- Additional Comments Section -->
+                <div class="form-section">
+                    <h2>Additional Feedback</h2>
+                    
+                    <div class="form-group">
+                        <label for="comments">Additional Comments</label>
+                        <textarea id="comments" name="comments" placeholder="Share any additional thoughts or feedback..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-submit">Submit Survey</button>
+                    <button type="reset" class="btn btn-cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        const form = document.getElementById('studentSurvey');
+
+        // Validate raffle numbers
+        function validateRaffle(input) {
+            const value = input.trim();
+            const numbers = value.split(',').map(n => n.trim()).filter(n => n !== '');
+            
+            // Check if at least 10 numbers
+            if (numbers.length < 10) {
+                return false;
+            }
+
+            // Check if all are valid numbers between 1-100
+            for (let num of numbers) {
+                const parsed = parseInt(num);
+                if (isNaN(parsed) || parsed < 1 || parsed > 100) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Real-time validation for raffle field
+        const raffleInput = document.getElementById('raffle');
+        raffleInput.addEventListener('blur', function() {
+            const formGroup = this.parentElement;
+            if (!validateRaffle(this.value)) {
+                formGroup.classList.add('error');
+            } else {
+                formGroup.classList.remove('error');
+            }
+        });
+
+        // Form submission validation
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent actual form submission for demo
+            
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.form-group.error').forEach(group => {
+                group.classList.remove('error');
+            });
+
+            // Validate required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.parentElement.classList.add('error');
+                    isValid = false;
+                }
+            });
+
+            // Validate raffle
+            if (!validateRaffle(raffleInput.value)) {
+                raffleInput.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate at least one radio button is selected
+            const interestSource = form.querySelector('input[name="interestSource"]:checked');
+            if (!interestSource) {
+                const radioGroup = form.querySelector('input[name="interestSource"]').closest('.form-group');
+                radioGroup.classList.add('error');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                // Scroll to first error
+                const firstError = document.querySelector('.form-group.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                // Form is valid - show success message and redirect
+                alert('Thank you for completing the survey! Your response has been recorded.');
+                
+                // Ask if they want to return to homepage
+                if (confirm('Would you like to return to the homepage?')) {
+                    window.location.href = 'index.html';
+                } else {
+                    // Reset the form if they want to stay
+                    form.reset();
+                    document.getElementById('surveyDate').valueAsDate = new Date();
+                }
+            }
+        });
+
+        // Cancel button confirmation
+        const cancelBtn = document.querySelector('.btn-cancel');
+        cancelBtn.addEventListener('click', function(e) {
+            if (form.querySelector('input:not([type="reset"]):not([type="button"])').value) {
+                if (!confirm('Are you sure you want to clear all fields?')) {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Set today's date as default
+        document.getElementById('surveyDate').valueAsDate = new Date();
+    </script>
+</body>
+</html>
