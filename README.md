@@ -29,7 +29,7 @@ Amazon S3 was used to host the static website using the built-in static website 
 4. Added a bucket policy to allow public `GetObject` access.
 5. Enabled **Static Website Hosting** from the bucket properties.
 6. Set `index.html` as the index document.
-7. Uploaded three main files: `index.html`, `error.html`, 'dragon-skull.jpg', and `survey.html`.
+7. Uploaded three main files: `index.html`, `error.html`, `dragon-skull.jpg`, and `survey.html`.
 8. Obtained the website endpoint from the bucket settings.
 
 ### S3 Website URL
