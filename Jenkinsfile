@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/desaimann37/SWE_645.git'
+                    url: 'https://github.com/Aakash-2010/SWE645_EC2.git'
             }
         }
         
