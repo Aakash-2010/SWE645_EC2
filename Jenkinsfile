@@ -39,21 +39,17 @@ pipeline {
         }
 
         stage('Update Kubernetes Deployment') {
- 	   steps {
-		script {
-         		sh '''
-           		# Replace placeholder Docker image in deployment.yaml
-            		sed -i 's|skye20/swe645:latest|'skye20/swe645:lastest|g' k8s/deployment.yaml
-
-	            	# Apply Deployment
-        		kubectl apply -f k8s/deployment.yaml
-
-            		# Apply Service
-            		kubectl apply -f k8s/service.yaml
-            		'''
-        		}
-    		}
-	}
+            steps {
+                script {
+                    sh """
+                    sed -i 's|skye20/swe645:latest|${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}|g' k8s/deployment.yaml
+                    kubectl apply -f k8s/deployment.yaml
+                    kubectl apply -f k8s/service.yaml
+                    """
+                }
+            }
+        }
+    }
 
     post {
         success {
