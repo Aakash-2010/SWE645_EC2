@@ -1,5 +1,14 @@
+# Use official nginx image
 FROM nginx:latest
-RUN rm -rf /user/share/nginx/html/*
-COPY index.html  /usr/share/nginx/html
+
+# Remove default nginx content
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy your website files
+COPY . /usr/share/nginx/html
+
+# Expose port 80
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off:"] 
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
